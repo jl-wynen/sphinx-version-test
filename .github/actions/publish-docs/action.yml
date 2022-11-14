@@ -14,6 +14,10 @@ inputs:
     description: GitHub OAuth token
     required: true
     type: string
+  url:
+    description: Base URL of the GitHub pages
+    required: true
+    type: string
   version:
     description: Deployment target
     required: true
@@ -28,13 +32,16 @@ runs:
           --config user.email="github-docs-action[bot]@users.noreply.github.com" \
           --config user.name="github-docs-action[bot]"
       shell: bash
-    - name: Prepare repository
+    - name: Copy changes
       run: |
         git reset $(git log --format="%H" | tail -1)
         rm -rf ${{ inputs.version }}
         cp -r ${{ inputs.folder }} ${{ inputs.version }}
       shell: bash
       working-directory: gh-pages
+    - name: Generate files
+      run: python generate_files.py --base=gh-pages --url=${{ inputs.url }}
+      shell: bash
 
     - name: Commit changes
       run: git add -A && git commit -m"Update gh-pages ref=${{ github.ref }}"
