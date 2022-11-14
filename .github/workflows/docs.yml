@@ -28,36 +28,18 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - run: sudo apt install --yes pandoc
-      - uses: actions/checkout@v3  # source code
-      - uses: actions/checkout@v3  # gh-pages
-        with:
-          ref: 'gh-pages'
-          path: 'gh-pages'
+      - uses: actions/checkout@v3
       - run: rm -rf gh-pages/${{ inputs.version }}  # to ensure a clean build
       - uses: actions/setup-python@v3
         with:
           python-version: 3.8
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -r requirements/docs.txt
-      - run: python -m sphinx -j2 -v -b html -d docs_doctrees docs gh-pages/${{ inputs.version }}
+      - run: python -m sphinx -j2 -v -b html -d docs_doctrees docs html/${{ inputs.version }}
       - uses: actions/upload-artifact@v3
         with:
           name: documentation-${{ inputs.version }}
-          path: gh-pages/${{ inputs.version }}
-
-      - run: git config user.name "github-docs-action[bot]"
-        working-directory: gh-pages
-      - run: git config user.email "ggithub-docs-action[bot]@users.noreply.github.com"
-        working-directory: gh-pages
-      - run: git add -A && git commit -m"Update gh-pages"
-        working-directory: gh-pages
-      - run: git push origin gh-pages
-        working-directory: gh-pages
-
-#      - uses: JamesIves/github-pages-deploy-action@v4.4.1
-#        if: ${{ inputs.publish }}
-#        with:
-#          branch: gh-pages
-#          folder: html/${{ inputs.version }}
-#          single-commit: true
-#          target-folder: ${{ inputs.version }}
+          path: html/${{ inputs.version }}
+      - uses: ./.github/actions/upload-docs
+        with:
+          version: ${{ inputs.version }}

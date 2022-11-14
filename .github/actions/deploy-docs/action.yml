@@ -1,0 +1,22 @@
+name: 'Deploy Docs'
+description: 'Deploy documentation to GitHub pages'
+inputs:
+  version:
+    description: Deployment target
+    required: true
+    type: string
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: 'gh-pages'
+        path: 'gh-pages'
+    - run: git config user.name "github-docs-action[bot]"
+      working-directory: gh-pages
+    - run: git config user.email "github-docs-action[bot]@users.noreply.github.com"
+      working-directory: gh-pages
+    - run: git add -A && git commit -m"Update gh-pages"
+      working-directory: gh-pages
+    - run: git push origin gh-pages
+      working-directory: gh-pages
