@@ -43,4 +43,5 @@ jobs:
         name: Publish documentation
         if: ${{ inputs.publish }}
         with:
+          folder: html/${{ inputs.version }}
           version: ${{ inputs.version }}
