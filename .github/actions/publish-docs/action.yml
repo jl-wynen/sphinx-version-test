@@ -18,7 +18,7 @@ runs:
         path: 'gh-pages'
     - run: rm -rf gh-pages/${{ inputs.version }}  # to ensure a clean build
       shell: bash
-    - run: cp -r ${{ inputs.folder }} gh-pages/${{ inputs.version }}}
+    - run: cp -r ${{ inputs.folder }} gh-pages/${{ inputs.version }}
       shell: bash
 
     - run: git config user.name "github-docs-action[bot]"
