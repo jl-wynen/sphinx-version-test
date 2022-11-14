@@ -9,7 +9,7 @@ on:
         required: false
         type: boolean
       version:
-        description: Version to build
+        description: Deployment target
         required: true
         type: string
   workflow_call:
@@ -44,6 +44,6 @@ jobs:
         if: ${{ inputs.publish }}
         with:
           branch: gh-pages
-          folder: html
+          folder: html/${{ inputs.version }}
           single-commit: true
           target-folder: ${{ inputs.version }}
