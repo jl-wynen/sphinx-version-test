@@ -19,7 +19,7 @@ runs:
   steps:
     - name: Clone repository for pages
       run: |
-        git clone https://github.com/${{ github.repository }}.git \
+        git clone https://github.com/${{ github.repository }}.git gh-pages \
           --depth 1 --single-branch --branch ${{ inputs.branch }} \
           --config user.email="github-docs-action[bot]@users.noreply.github.com" \
           --config user.name="github-docs-action[bot]"
