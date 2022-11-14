@@ -1,5 +1,10 @@
 [
   {
+    "name": "3.0",
+    "version": "3.0",
+    "url": "https://jl-wynen.github.io/sphinx-version-test/3.0/"
+  },
+  {
     "name": "2.0",
     "version": "2.0",
     "url": "https://jl-wynen.github.io/sphinx-version-test/2.0/"
