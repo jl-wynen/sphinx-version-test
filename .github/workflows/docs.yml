@@ -43,5 +43,5 @@ jobs:
         name: Publish documentation
         if: ${{ inputs.publish }}
         with:
-          folder: html/${{ inputs.version }}
+          folder: ${GITHUB_WORKSPACE}/html/${{ inputs.version }}
           version: ${{ inputs.version }}
