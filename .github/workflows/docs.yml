@@ -8,12 +8,19 @@ on:
         description: Publish docs
         required: false
         type: boolean
+      version:
+        description: Version to build
+        required: true
+        type: string
   workflow_call:
     inputs:
       publish:
         default: false
         required: false
         type: boolean
+      version:
+        required: true
+        type: string
 
 jobs:
   docs:
@@ -27,7 +34,7 @@ jobs:
           python-version: 3.8
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -r requirements/docs.txt
-      - run: python -m sphinx -j2 -v -b html -d docs_doctrees docs html
+      - run: python -m sphinx -j2 -v -b html -d docs_doctrees docs html/${{ inputs.version }}
       - run: touch html/.nojekyll
       - uses: actions/upload-artifact@v3
         with:
@@ -39,3 +46,4 @@ jobs:
           branch: gh-pages
           folder: html
           single-commit: true
+          target-folder: ${{ inputs.version }}
