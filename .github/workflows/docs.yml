@@ -44,4 +44,5 @@ jobs:
         if: ${{ inputs.publish }}
         with:
           folder: ${GITHUB_WORKSPACE}/html/${{ inputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ inputs.version }}
