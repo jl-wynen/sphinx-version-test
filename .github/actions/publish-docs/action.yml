@@ -40,7 +40,7 @@ runs:
       shell: bash
       working-directory: gh-pages
     - name: Generate files
-      run: python generate_files.py --base=gh-pages --url=${{ inputs.url }}
+      run: python ${{ github.action_path }}/generate_files.py --base=gh-pages --url=${{ inputs.url }}
       shell: bash
 
     - name: Commit changes

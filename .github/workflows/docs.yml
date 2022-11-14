@@ -45,4 +45,5 @@ jobs:
         with:
           folder: ${GITHUB_WORKSPACE}/html/${{ inputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          url: https://jl-wynen.github.io/sphinx-version-test
           version: ${{ inputs.version }}
