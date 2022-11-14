@@ -13,10 +13,18 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
 pygments_style = "sphinx"
 
 html_theme = "pydata_sphinx_theme"
+version = "1.0"  # TODO get from package
 html_theme_options = {
     "left_sidebar_end": [],
     "show_nav_level": 1,
     "github_url": "https://github.com/SciCatProject/scitacean",
+
+    # NEW
+    "navbar_end": ["version-switcher", "navbar-icon-links"],
+    "switcher": {
+        "json_url": "https://jl-wynen.github.io/sphinx-version-test/_static/version-switcher.json", # TODO
+        "version_match": version,
+    }
 }
 html_context = {
     "github_user": "SciCatProject",

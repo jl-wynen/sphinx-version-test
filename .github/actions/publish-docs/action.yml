@@ -10,15 +10,19 @@ inputs:
     required: true
     type: string
 runs:
+  # TODO replace old commits
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
+    - name: Checkout pages branch
+      uses: actions/checkout@v3
       with:
         ref: 'gh-pages'
         path: 'gh-pages'
-    - run: rm -rf gh-pages/${{ inputs.version }}  # to ensure a clean build
+    - name: Remove old content  # to ensure a clean build
+      run: rm -rf gh-pages/${{ inputs.version }}
       shell: bash
-    - run: cp -r ${{ inputs.folder }} gh-pages/${{ inputs.version }}
+    - name: Copy new content
+      run: cp -r ${{ inputs.folder }} gh-pages/${{ inputs.version }}
       shell: bash
 
     - run: git config user.name "github-docs-action[bot]"
@@ -27,9 +31,11 @@ runs:
     - run: git config user.email "github-docs-action[bot]@users.noreply.github.com"
       working-directory: gh-pages
       shell: bash
-    - run: git add -A && git commit -m"Update gh-pages"
+    - name: Commit changes
+      run: git add -A && git commit -m"Update gh-pages"
       shell: bash
       working-directory: gh-pages
-    - run: git push origin gh-pages
+    - name: Push
+      run: git push origin gh-pages
       shell: bash
       working-directory: gh-pages
