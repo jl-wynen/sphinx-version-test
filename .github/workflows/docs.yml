@@ -45,7 +45,7 @@ jobs:
           name: documentation-${{ inputs.version }}
           path: gh-pages/${{ inputs.version }}
 
-      - run: git add -A && git commit -m'Update gh-pages'
+      - run: git add -A && git commit -m'Update gh-pages' --author='GH Docs Workflow'
         working-directory: gh-pages
       - run: git push origin gh-pages
         working-directory: gh-pages
