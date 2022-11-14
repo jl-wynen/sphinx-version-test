@@ -9,7 +9,7 @@ on:
         required: false
         type: boolean
       version:
-        description: Deployment target
+        description: Deploy to version
         required: true
         type: string
   workflow_call:
@@ -29,7 +29,6 @@ jobs:
     steps:
       - run: sudo apt install --yes pandoc
       - uses: actions/checkout@v3
-      - run: rm -rf gh-pages/${{ inputs.version }}  # to ensure a clean build
       - uses: actions/setup-python@v3
         with:
           python-version: 3.8
