@@ -1,5 +1,5 @@
-name: 'Deploy Docs'
-description: 'Deploy documentation to GitHub pages'
+name: 'Publish Docs'
+description: 'Publish documentation to GitHub pages'
 inputs:
   version:
     description: Deployment target

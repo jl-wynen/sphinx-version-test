@@ -40,6 +40,8 @@ jobs:
         with:
           name: documentation-${{ inputs.version }}
           path: html/${{ inputs.version }}
-      - uses: ./.github/actions/upload-docs
+      - uses: ./.github/actions/publish-docs
+        name: Publish documentation
+        if: ${{ inputs.publish }}
         with:
           version: ${{ inputs.version }}
