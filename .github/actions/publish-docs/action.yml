@@ -1,6 +1,11 @@
 name: 'Publish Docs'
 description: 'Publish documentation to GitHub pages'
 inputs:
+  branch:
+    default: gh-pages
+    description: Branch to deploy to
+    required: false
+    type: string
   folder:
     description: Folder to deploy to GH pages
     required: true
@@ -10,29 +15,25 @@ inputs:
     required: true
     type: string
 runs:
-  # TODO replace old commits
   using: "composite"
   steps:
-    - name: Checkout pages branch
-      uses: actions/checkout@v3
-      with:
-        ref: 'gh-pages'
-        path: 'gh-pages'
-    - name: Remove old content  # to ensure a clean build
-      run: rm -rf gh-pages/${{ inputs.version }}
+    - name: Clone repository for pages
+      run: |
+        git clone ${{ github.repositoryUrl }} \
+          --depth 1 --single-branch --branch ${{ inputs.branch }} \
+          --config user.email="github-docs-action[bot]@users.noreply.github.com" \
+          --config user.name="github-docs-action[bot]"
       shell: bash
-    - name: Copy new content
-      run: cp -r ${{ inputs.folder }} gh-pages/${{ inputs.version }}
+    - name: Prepare repository
+      run: |
+        git reset $(git log --format="%H" | tail -1)
+        rm -rf ${{ inputs.version }}
+        cp -r ${{ inputs.folder }} ${{ inputs.version }}
       shell: bash
+      working-directory: gh-pages
 
-    - run: git config user.name "github-docs-action[bot]"
-      shell: bash
-      working-directory: gh-pages
-    - run: git config user.email "github-docs-action[bot]@users.noreply.github.com"
-      working-directory: gh-pages
-      shell: bash
     - name: Commit changes
-      run: git add -A && git commit -m"Update gh-pages"
+      run: git add -A && git commit -m"Update gh-pages ref=${{ github.ref }}"
       shell: bash
       working-directory: gh-pages
     - name: Push
