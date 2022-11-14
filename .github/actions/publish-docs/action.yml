@@ -19,7 +19,7 @@ runs:
   steps:
     - name: Clone repository for pages
       run: |
-        git clone https://github.com/${{ github.repository }}.git gh-pages \
+        git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git gh-pages \
           --depth 1 --single-branch --branch ${{ inputs.branch }} \
           --config user.email="github-docs-action[bot]@users.noreply.github.com" \
           --config user.name="github-docs-action[bot]"
@@ -37,6 +37,6 @@ runs:
       shell: bash
       working-directory: gh-pages
     - name: Push
-      run: git push https://github.com/${{ github.repository }}.git gh-pages
+      run: git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git gh-pages \
       shell: bash
       working-directory: gh-pages
