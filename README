@@ -1,0 +1,7 @@
+- copy settings in conf.py
+- copy action and settings in docs.yml
+- init gh-pages branch by running the action once (might fail because there are no current versions)
+- add .nojekyll
+- add a 'latest' folder which redirects to base (which redirects to latest version)
+- style switcher
+- put versions into en/1.0 etc (seems to be what RTD does)
